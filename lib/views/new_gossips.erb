@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>Créer un potin</title>
+    <link rel='stylesheet' href='/css/style.css'>
+  </head>
+
+  <body>
+    <h1>Crée un potin !</h1>
+    <p>Balance ton potin via le formulaire ci-dessous</p>
+    
+    <form action='/gossips/new/' method='POST'> Saisi ici ton nom :
+      <input type='text' placeholder="Entrez votre nom"name='gossip_author'/><br/>Balance ton potin :
+      <input type='text' placeholder="Entrez le contenu du potin" name='gossip_content'/><br/>
+      <input type='submit' />
+    </form>
+
+  </body>
+
+
+<footer>
+  Première application sous le model MVC avec Sinatra ! 
+</footer>
+
+</html>

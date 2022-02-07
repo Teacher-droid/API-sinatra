@@ -1,17 +1,39 @@
-class Gossip
+require 'csv'
 
-    attr_accessor :content, :author
-
-    def initialize(author, content)
-        @content = content
-        @author = author
-    end
+    class Gossip
     
-    def stockage_in_csv_file 
-        file = File.open("db/gossip.csv", "a")
-        file.puts "#{author},#{content}"
-        file.close
+      attr_accessor :author, :content
+    
+      def initialize(author, content)
+        @author = author
+        @content = content
+      end
+    
+      def save #méthode qui permet d'enregistrer les potins dans le CSV.
+        CSV.open("./db/gossip.csv", "ab") do |csv|
+          csv << [@author, @content]
+        end
+      end
+    
+      def self.all #on initialise un array vide.
+        all_gossips = []
+        CSV.read("./db/gossip.csv").each do |csv_line|
+          all_gossips << Gossip.new(csv_line[0], csv_line[1])
+        end
+        return all_gossips #on retourne un array rempli d'objets Gossip.
+      end
+      
+      def self.find(id)
+        return self.all[id.to_i]
+      end
     end
+
+    
+    #def stockage_in_csv_file 
+        #file = File.open("db/gossip.csv", "a")
+        #file.puts "#{author},#{content}"
+        #file.close
+    #end
 
 =begin    
     csv = CSV.open("db/gossip.csv", "a") do |counter|
@@ -21,7 +43,7 @@ class Gossip
         pp object
     end
 =end
-end
+
     
 
 =begin
@@ -32,3 +54,5 @@ w+, pour "write and read" : tu vas pouvoir réécrire intégralement ton fichier
 a+, pour "append and read" : tu vas pouvoir ajouter des lignes à ton fichier, et aussi pouvoir lire ce qu'il y a dedans.
 r+, pour "read and write" : tu vas pouvoir modifier ton fichier sans tout effacer
 =end
+
+
