@@ -1,13 +1,19 @@
-########################################
+##############################################
+##### Program the_gossip_project_sinatra #####
+##############################################
 
-## PROGAM THE GOSSIP PROJECT
+This program allows you to write, read, and modify gossips.
+As we all know, gossips tend to be an essential component
+of small talk. And small talk tends to lead to everything.
+Or anything.
 
-########################################
+Dont forget to bundle install ;)
 
-The app is gathering input on MVC structure.
-In a close-knit community as The Hacking Project gossip can't be afford.So here we go The Gossip Project app, where the user can enter gossip and rumour, display a list of gossip, then delete those that are no longer relevant.
+Run with $ rackup -p 4567
 
-Views will be displayed in the terminal, gossip saved to CSV format, and the program will run until the user quits it.
+Ps : I didnt code the last part of the exercise (comment a
+gossip). Sorry about that.
+
 
 # Technologies
 

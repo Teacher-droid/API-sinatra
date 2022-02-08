@@ -1,17 +1,18 @@
 <html>
   <head>
-    <title> Un tas de potins</title>
-    <link rel='stylesheet' href='/css/style.css'>
+    <title>Gossip number <%=id%></title>
   </head>
-  <body>
-
-  <h1>PAGE POTIN</h1>
-  <h3> Voici la page du potin n° <%= id %> </h3>
-  
-  <p> Son auteur : <span class="bold"><%= gossip.author %> </span></p> 
-  <p> Le contenu du potin : <span class="bold"><%= gossip.content %> </span></p>
-
-
-</body>
-
+    <body>
+    <h1>Unbelievable gossip <%=id%></h1>
+    <% gossips.each do |gossip| %>
+      <p>
+        <h2> Here comes the gossip number <%= id %></h2>
+        <p><strong>Author : </strong><%= gossip.author %></p>
+        <p><strong>Gossip content : </strong><%= gossip.content %></p>
+        <p>################################################</p>
+        You can <a href="<%= id %>/edit">modify the gossip.</a>
+      </p>
+    <% end %>
+    <p><a href="/">Back to homepage.</a></p>
+    </body>
 </html>

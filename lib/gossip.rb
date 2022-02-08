@@ -1,58 +1,53 @@
-require 'csv'
+class Gossip
+  attr_accessor :author, :content
+  @@all_gossips = Array.new
 
-    class Gossip
-    
-      attr_accessor :author, :content
-    
-      def initialize(author, content)
-        @author = author
-        @content = content
-      end
-    
-      def save #méthode qui permet d'enregistrer les potins dans le CSV.
-        CSV.open("./db/gossip.csv", "ab") do |csv|
-          csv << [@author, @content]
-        end
-      end
-    
-      def self.all #on initialise un array vide.
-        all_gossips = []
-        CSV.read("./db/gossip.csv").each do |csv_line|
-          all_gossips << Gossip.new(csv_line[0], csv_line[1])
-        end
-        return all_gossips #on retourne un array rempli d'objets Gossip.
-      end
-      
-      def self.find(id)
-        return self.all[id.to_i]
+  def initialize(author,content)
+    @author = author
+    @content = content
+  end
+
+  def save_gossip
+    CSV.open("./db/gossip.csv","ab") do |csv|
+      csv << [@author, @content]
+    end
+  end
+
+  def self.all
+    CSV.read("./db/gossip.csv").each do |csv_line|
+      @@all_gossips << Gossip.new(csv_line[0], csv_line[1])
+    end
+    return @@all_gossips
+  end
+
+  def self.find(id)
+    gossips = []
+    CSV.read("./db/gossip.csv").each_with_index do |csv_line, index|
+      if (id == index+1)
+        gossips << Gossip.new(csv_line[0], csv_line[1])
+        break
       end
     end
+    return gossips
+  end
 
-    
-    #def stockage_in_csv_file 
-        #file = File.open("db/gossip.csv", "a")
-        #file.puts "#{author},#{content}"
-        #file.close
-    #end
-
-=begin    
-    csv = CSV.open("db/gossip.csv", "a") do |counter|
-        counter << "(#{author},#{content})"
-        CSV.close
-        objet = CSV.parse(csv)
-        pp object
+#on crée un array temporaire où on stocke d'une part les valeurs à changer ("if")
+#et d'autre part les valeurs à conserver ("else").
+#on recrée ensuite un nouveau csv avec ces valeurs ("CSV.open") qui va remplacer l'ancien ("w").
+  def self.update(id, author, content)
+    gossips = []
+    CSV.read("./db/gossip.csv").each_with_index do |row, index|
+    if id.to_i == (index+1)
+      gossips << [author, content]
+    else
+      gossips << [row[0], row[1]]
     end
-=end
+  end
+      CSV.open("./db/gossip.csv","w") do |csv|
+        gossips.each do |row|
+          csv << row
+        end
+    end
+  end
 
-    
-
-=begin
-r, pour "reading" : tu vas pouvoir lire le fichier, voir ce qu'il y a écrit dedans.
-a, pour "append" : tu vas pouvoir ajouter des lignes à ton fichier.
-w, pour "write" : tu vas réécrire intégralement ton fichier. S'il y a déjà un fichier, il efface tout pour repartir de 0. S'il n'y a pas de fichier, il en crée un.
-w+, pour "write and read" : tu vas pouvoir réécrire intégralement ton fichier (cf. ci-dessus), et tu peux aussi lire ce qu'il y a dedans.
-a+, pour "append and read" : tu vas pouvoir ajouter des lignes à ton fichier, et aussi pouvoir lire ce qu'il y a dedans.
-r+, pour "read and write" : tu vas pouvoir modifier ton fichier sans tout effacer
-=end
-
-
+end

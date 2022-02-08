@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Modify Gossip.</title>
+  </head>
+  <body>
+  <h1>Gossips never get old... Cuz they're updated.</h1>
+    <p>Edit gossip <%= id%> right there :</p>
+    <form action='/gossips/edit/' method='POST'>
+      <% gossips.each do |gossip| %>
+        What's your name ?  <input type='text' name='gossip_author'/><br/>
+        What's the gossip ? <input type='text' name='gossip_content'/><br/>
+      <% end %>
+      <input type='hidden' name='id' value='<%= id %>'/>
+      <input type='submit'/>
+    </form>
+    <p><a href="/">Back to homepage.</a></p>
+  </body>
+</html>

@@ -1,26 +1,15 @@
 <html>
   <head>
     <title>The Gossip Project</title>
-  <link rel='stylesheet' href='/css/style.css'>
   </head>
-
   <body>
-    <h1> Bienvenue sur The Gossip Project ! </h1><br>
-    <% gossips.each_with_index do |gossip, i| %>
-      <div class = "container">
-        <p> Potin n° <%= i+1 %> </p>
-        <p> Auteur du potin : <%= gossip.author %> </p>
-        <p> Le contenu du potin : <%= gossip.content %> </p>
-        <a href="/gossips/<%=i+1%>"> Lire le potin </a>
-        </div>
+    <h1>Best gossip site ever.</h1>
+    <p>You can  create a <a href="/gossips/new/">New Gossip</a> if you like to.</p>
+    <% gossips.each_with_index do |gossip, index| %>
+    <p>
+      <a href="/gossips/<%= (index+1) %>"><%= gossip.author %> : <%= gossip.content %><br/></a>     
+    </p>
     <% end %>
-
-    <h2 class="create"><a href="/gossips/new/">Page de création du gossip</a></h2>
+    
   </body>
-
-
-<footer>
-  Première application sous le model MVC avec Sinatra !
-</footer>
-
 </html>
